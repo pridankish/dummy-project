@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/university
+    username: university
+    password: university
+  flyway:
+    schemas:
+      - public
+      - university
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true

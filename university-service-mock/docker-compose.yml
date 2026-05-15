@@ -1,0 +1,16 @@
+services:
+  catalogue-db:
+    image: postgres:17
+    container_name: university-db
+    environment:
+      POSTGRES_DB: university
+      POSTGRES_USER: university
+      POSTGRES_PASSWORD: university
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
