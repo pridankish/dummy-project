@@ -21,10 +21,12 @@ pipeline {
 		}
 
 		stage('Docker clean') {
-            sh 'docker ps -a -q --filter "name=spring-boot-app" | xargs -r docker stop'
-		    sh 'docker ps -a -q --filter "name=spring-boot-app" | xargs -r docker rm'
+		    steps {
+		        sh 'docker ps -a -q --filter "name=spring-boot-app" | xargs -r docker stop'
+                sh 'docker ps -a -q --filter "name=spring-boot-app" | xargs -r docker rm'
 
-		    sh 'docker images -q --filter "dangling=true | xargs -r docker rmi"'
+                sh 'docker images -q --filter "dangling=true | xargs -r docker rmi"'
+		    }
 		}
 
 		stage('Docker build') {
