@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -27,4 +29,22 @@ public class Group {
     @ManyToOne
     @JoinColumn(name = "university_id")
     private University university;
+
+    @OneToMany(
+            mappedBy = "group",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
+    )
+    private List<Lesson> lessons;
+
+    public void addLesson(Lesson lesson) {
+        lessons.add(lesson);
+        lesson.setGroup(this);
+    }
+
+    public void removeLesson(Lesson lesson) {
+        lessons.remove(lesson);
+        lesson.setGroup(null);
+    }
 }

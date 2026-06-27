@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/university
-    username: university
-    password: university
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/university}
+    username: ${SPRING_DATASOURCE_USERNAME:university}
+    password: ${SPRING_DATASOURCE_PASSWORD:university}
   flyway:
     schemas:
       - public
@@ -11,3 +11,23 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+  cache:
+    type: redis
+
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+  metrics:
+    tags:
+      application: sandbox

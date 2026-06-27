@@ -1,5 +1,5 @@
 services:
-  catalogue-db:
+  university-db:
     image: postgres:17
     container_name: university-db
     environment:
@@ -11,6 +11,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
+  university-redis:
+    image: redis:8.2.1
+    restart: on-failure
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
 
 volumes:
   postgres_data:
+  redis_data:
